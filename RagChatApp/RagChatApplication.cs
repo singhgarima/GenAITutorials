@@ -1,14 +1,15 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RagChatApp.Infrastructure;
 
-namespace SimpleChatApp;
+namespace RagChatApp;
 
-public class ChatApplication
+public class RagChatApplication
 {
     private readonly IHost _host;
 
-    public ChatApplication()
+    public RagChatApplication()
     {
         var hostBuilder = Host.CreateDefaultBuilder();
         hostBuilder.ConfigureAppConfiguration(cfg => { cfg.AddJsonFile("appsettings.json", false, true); });
@@ -17,8 +18,14 @@ public class ChatApplication
         {
             services.AddSingleton(context.Configuration);
             var ollamaBaseUrl = new Uri(context.Configuration["Ollama:Endpoint"] ?? string.Empty);
-            services.AddHttpClient<IChatClient, OllamaChatClient>(c =>
+            services.AddHttpClient<IEmbeddingProvider, OllamaEmbeddingProvider>(c =>
                 c.BaseAddress = ollamaBaseUrl);
+            services.AddSingleton<IVectorDatabase, QdrantVectorDatabase>();
+
+            services.AddHttpClient<ILlmProvider, OllamaLlmProvider>(c =>
+                c.BaseAddress = ollamaBaseUrl);
+
+            services.AddSingleton<RagQuoteAssistant>();
         });
 
         _host = hostBuilder.Build();
