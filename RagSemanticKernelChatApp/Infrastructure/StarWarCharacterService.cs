@@ -26,13 +26,13 @@ public class StarWarCharacterService(HttpClient httpClient, IConfiguration confi
 
     private class ApiResponse
     {
-        [JsonPropertyName("rows")] public List<RowWrapper> Rows { get; } = new();
+        [JsonPropertyName("rows")] public List<RowWrapper> Rows { get; set; } = new();
     }
 
     private class RowWrapper
     {
-        [JsonPropertyName("row_idx")] public uint RowIdx { get; set; }
+        [JsonPropertyName("row_idx")] public ulong RowIdx { get; set; }
 
-        [JsonPropertyName("row")] public StarWarCharacter Character { get; } = null!;
+        [JsonPropertyName("row")] public StarWarCharacter Character { get; set; } = null!;
     }
 }

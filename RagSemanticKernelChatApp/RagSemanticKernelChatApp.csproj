@@ -8,13 +8,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0-preview.5.25277.114" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.5.25277.114" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.0-preview.5.25277.114"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.5.25277.114"/>
         <PackageReference Include="Microsoft.Extensions.Http" Version="10.0.0-preview.5.25277.114"/>
-    </ItemGroup>
-    
-    <ItemGroup>
-        <None Update="appsettings.json" CopyToOutputDirectory="Always" />
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Ollama" Version="1.56.0-alpha"/>
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.56.0-preview"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <None Update="appsettings.json" CopyToOutputDirectory="Always"/>
+    </ItemGroup>
+
+    <PropertyGroup>
+        <NoWarn>SKEXP0001</NoWarn>
+        <NoWarn>SKEXP0070</NoWarn>
+    </PropertyGroup>
 </Project>

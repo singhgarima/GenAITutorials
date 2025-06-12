@@ -1,4 +1,4 @@
-﻿
+﻿using Microsoft.SemanticKernel;
 using RagSemanticKernelChatApp;
 using RagSemanticKernelChatApp.Infrastructure;
 
@@ -9,4 +9,8 @@ var app = new RagSemanticKernelChatApplication();
 var characterService = app.GetService<IStarWarCharacterService>();
 var characters = await characterService.GetCharactersAsync();
 
-Console.WriteLine(characters);
+
+var kernel = app.GetService<Kernel>();
+var assistant = new CharacterAssistant(kernel);
+await assistant.IngestAsync(characters);
+
