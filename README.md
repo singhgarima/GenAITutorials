@@ -2,35 +2,18 @@
 
 This repository contains example projects demonstrating integration with various AI models and services.
 
-| Project Name  | Description                                                                                                    | 
-|---------------|----------------------------------------------------------------------------------------------------------------|
-| SimpleChatApp | A simple console-based chat application that demonstrates how to use Semantic Kernel with Ollama's local LLMs. |
+| Project Name                               | Description                                                                                                                                                                        |
+|--------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [SimpleChatApp](./SimpleChatApp/README.md) | A simple console-based chat application that demonstrates how to use Semantic Kernel with Ollama's local LLMs.                                                                     |
+| [RagChatApp](./RagChatApp/README.md)       | A console-based chat application where star-trek quotes are used as a knowledge base. It demonstrates how to build a RAG (Retrieval-Augmented Generation) application from scratch |
 
 ## Prerequisites
 
 ### For all projects
+
 - [.NET 9.0 SDK](https://dotnet.microsoft.com/download)
 - [Ollama](https://ollama.ai) installed and running locally
 
-## Running the SimpleChatApp
-
-From the repository root:
-
-```bash
-cd SimpleChatApp
-dotnet run
-```
-
-The application will start and you can begin chatting with the AI assistant. 
-The assistant is configured as a movie recommendation expert.
-
-### Usage
-
-1. The app will display "Hello, I am a movie recommendation expert. How can I help you today?"
-2. Type your message after the "User: " prompt
-3. The AI will respond with movie recommendations based on your input
-4. Continue the conversation as desired
-5. Type "exit" to end the chat session
-
 ## License
+
 MIT
