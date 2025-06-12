@@ -5,7 +5,7 @@ namespace RagSemanticKernelChatApp.Infrastructure;
 
 public class StarWarCharacter
 {
-    [VectorStoreKey] public ulong Id { get; set; } = 0;
+    [VectorStoreKey] public ulong Id { get; set; }
 
     [VectorStoreData]
     [JsonPropertyName("name")]
@@ -47,13 +47,38 @@ public class StarWarCharacter
     [JsonPropertyName("species")]
     public string Species { get; set; } = string.Empty;
 
-    [VectorStoreVector(1536)]
-    public string Embedding => ToString();
+    [VectorStoreVector(768)] public string Embedding => ToString();
 
     public override string ToString()
     {
         return $"Name: {Name}, Height: {Height}, Mass: {Mass}, Hair Color: {HairColor}, " +
                $"Skin Color: {SkinColor}, Eye Color: {EyeColor}, Birth Year: {BirthYear}, " +
                $"Gender: {Gender}, Homeworld: {Homeworld}, Species: {Species}";
+    }
+
+    public static VectorStoreCollectionDefinition GetVectorStoreCollectionDefinition(string vectorName)
+    {
+        return new VectorStoreCollectionDefinition
+        {
+            Properties = new List<VectorStoreProperty>
+            {
+                new VectorStoreKeyProperty("Id", typeof(ulong)),
+                new VectorStoreDataProperty("Name", typeof(string)),
+                new VectorStoreDataProperty("Height", typeof(float?)),
+                new VectorStoreDataProperty("Mass", typeof(string)),
+                new VectorStoreDataProperty("HairColor", typeof(string)),
+                new VectorStoreDataProperty("SkinColor", typeof(string)),
+                new VectorStoreDataProperty("EyeColor", typeof(string)),
+                new VectorStoreDataProperty("BirthYear", typeof(string)),
+                new VectorStoreDataProperty("Gender", typeof(string)),
+                new VectorStoreDataProperty("Homeworld", typeof(string)),
+                new VectorStoreDataProperty("Species", typeof(string)),
+                new VectorStoreVectorProperty("Embedding", typeof(string), 768)
+                {
+                    DistanceFunction = DistanceFunction.CosineSimilarity,
+                    StorageName = vectorName
+                }
+            }
+        };
     }
 }
