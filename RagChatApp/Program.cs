@@ -3,7 +3,6 @@
 using RagChatApp;
 
 Console.WriteLine("Hello, I am a Star Trek Quote expert. How can I help you today?");
-;
 
 var quotes = Quote.ParseFile(Path.Combine("data", "quotes.json"));
 
@@ -23,6 +22,6 @@ do
     }
 
     var reply = await ragQuoteAssistant.ReplyToPrompt(userInput);
-    Console.WriteLine($"AI:");
+    Console.WriteLine("AI:");
     Console.WriteLine($"   {reply}");
 } while (true);
