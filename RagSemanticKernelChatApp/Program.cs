@@ -14,3 +14,18 @@ var kernel = app.GetService<Kernel>();
 var assistant = new CharacterAssistant(kernel);
 await assistant.IngestAsync(characters);
 
+do
+{
+    Console.WriteLine("==========================================================");
+    Console.WriteLine("User: ");
+    var userInput = Console.ReadLine();
+    if (string.IsNullOrWhiteSpace(userInput) || userInput.Equals("exit", StringComparison.OrdinalIgnoreCase))
+    {
+        Console.WriteLine("Exiting chat...");
+        break;
+    }
+
+    var reply = await assistant.ReplyToPrompt(userInput);
+    Console.WriteLine("AI:");
+    foreach (var line in reply.Split("\n")) Console.WriteLine($"   {line}");
+} while (true);

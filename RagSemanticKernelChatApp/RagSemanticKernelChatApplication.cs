@@ -21,6 +21,7 @@ public class RagSemanticKernelChatApplication
             RegisterDataSourceService(context.Configuration, services);
             RegisterEmbeddingGenerator(context.Configuration, services);
             RegisterVectorDb(context.Configuration, services);
+            RegisterChatProvider(context.Configuration, services);
             RegisterKernel(services);
         });
 
@@ -47,6 +48,16 @@ public class RagSemanticKernelChatApplication
             config["Qdrant:Endpoint"] ?? "",
             int.Parse(config["Qdrant:Port"] ?? "6334"),
             false
+        );
+    }
+
+    private void RegisterChatProvider(IConfiguration config, IServiceCollection services)
+    {
+        var chatEndpoint = new Uri(config["Ollama:Endpoint"] ?? string.Empty);
+        var model = config["Ollama:ChatModel"] ?? string.Empty;
+        services.AddOllamaChatCompletion(
+            model,
+            chatEndpoint
         );
     }
 
