@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.SemanticKernel;
 
 namespace SimpleChatApp;
 
@@ -15,10 +16,14 @@ public class ChatApplication
 
         hostBuilder.ConfigureServices((context, services) =>
         {
-            services.AddSingleton(context.Configuration);
-            var ollamaBaseUrl = new Uri(context.Configuration["Ollama:Endpoint"] ?? string.Empty);
-            services.AddHttpClient<IChatClient, OllamaChatClient>(c =>
-                c.BaseAddress = ollamaBaseUrl);
+            var chatEndpoint = new Uri(context.Configuration["Ollama:Endpoint"] ?? string.Empty);
+            var model = context.Configuration["Ollama:ChatModel"] ?? string.Empty;
+            services.AddOllamaChatCompletion(
+                model,
+                chatEndpoint
+            );
+
+            services.AddTransient(serviceProvider => new Kernel(serviceProvider));
         });
 
         _host = hostBuilder.Build();

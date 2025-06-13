@@ -1,12 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using SimpleChatApp;
 
 Console.WriteLine("Hello, I am a movie recommendation expert. How can I help you today?");
 
 var application = new ChatApplication();
-var chatClient = application.GetService<IChatClient>();
+var kernel = application.GetService<Kernel>();
+var chatService = kernel.GetRequiredService<IChatCompletionService>();
 
 var chatHistory = new ChatHistory("You are a movie recommendation expert assistant.");
 
@@ -21,7 +23,7 @@ do
     }
 
     chatHistory.AddUserMessage(userInput);
-    var reply = await chatClient.GetChatMessageContentAsync(chatHistory);
+    var reply = await chatService.GetChatMessageContentAsync(chatHistory);
 
     Console.WriteLine($"AI: {reply.Content}");
     chatHistory.AddAssistantMessage(reply.Content ?? "No response received.");
