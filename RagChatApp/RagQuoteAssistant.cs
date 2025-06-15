@@ -41,6 +41,7 @@ public class RagQuoteAssistant(IEmbeddingProvider embeddingProvider, IVectorData
                             "Quote: 'quote text' - Character (Episode)"
                           - Do not modify the quote, us as-is.
                           - Do not include any additional information outside of the quotes.
+                          - If the quote in the context is not in line with user's question then give a oops message
                           """;
 
         // 5. Call the LLM
