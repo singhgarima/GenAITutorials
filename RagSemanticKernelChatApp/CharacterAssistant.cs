@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.AI;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
@@ -50,17 +49,8 @@ public class CharacterAssistant(Kernel kernel)
 
                           Please respond to the user's question:
                           - With context provided ONLY
-                          - List all information about the character(s) the AI model thinks are relevant to the question in format:
-                            Character Name: <name>
-                                Height: <height>
-                                Mass: <mass>
-                                Hair Color: <hair_color>
-                                Skin Color: <skin_color>
-                                Eye Color: <eye_color>
-                                Birth Year: <birth_year>
-                                <age>: <age>
-                                Homeworld: <homeworld>
-                                Species: <species>
+                          - Filter out only characters relevant to users question/prompt
+                          - If user wants to know about only one character, provide only that character:
                           - Do not provide any inference or additional information
                           - Do not include any additional character outside of the 5 provides in the prompt.
                           - Do not pull any information about any character form outside of information provided
@@ -84,7 +74,7 @@ public class CharacterAssistant(Kernel kernel)
 
         var qdrantClient = _vectorStore.GetService(typeof(QdrantClient)) as QdrantClient;
         var collection = new QdrantCollection<ulong, StarWarCharacter>(
-            qdrantClient, CollectionName, true, collectionOptions);
+            qdrantClient!, CollectionName, true, collectionOptions);
         await collection.EnsureCollectionExistsAsync();
         return collection;
     }

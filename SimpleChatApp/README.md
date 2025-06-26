@@ -2,10 +2,24 @@
 
 A simple console-based chat application that demonstrates how to use Semantic Kernel with Ollama's local LLMs.
 
+## Technologies Used
+
+| Technology      | Description                                                   |
+|-----------------|---------------------------------------------------------------|
+| .NET 9.0        | The framework used to build the application.                  |
+| Ollama          | A local LLM (Large Language Model) provider.                  |
+
+
 ## Running the SimpleChatApp
 
-From the repository root:
+### Prerequisites
 
+- [.NET 9.0 SDK](https://dotnet.microsoft.com/download)
+- [Ollama](https://ollama.ai) installed and running locally
+
+### Running the SimpleChatApp
+
+From the repository root:
 ```bash
 cd SimpleChatApp
 dotnet run
