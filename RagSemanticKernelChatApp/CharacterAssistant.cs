@@ -31,7 +31,7 @@ public class CharacterAssistant(Kernel kernel)
         var promptEmbedding = await _embeddingGenerator.GenerateAsync(prompt);
 
         // 2. Retrieve the top 5 most relevant characters
-        var collection = GetCollection(_embeddingGenerator).Result;
+        var collection = await GetCollection(_embeddingGenerator);
         var topCharacters = collection.SearchAsync(promptEmbedding, 5);
 
 
